@@ -32,6 +32,18 @@ const User = mongoose.model('User', {
     password: String,
     created: { type: Date, default: Date.now },
 });
+const Live = mongoose.model('User', {
+    teamA: String,
+    teamB: String,
+    batA: String,
+    batB: String,
+    bowl: String,
+    wicket: String,
+    toss: String,
+
+
+    created: { type: Date, default: Date.now },
+});
 const Post = mongoose.model("Post", {
     postText: String,
     created: { type: Date, default: Date.now },
@@ -250,6 +262,8 @@ app.get("/api/v1/posts", (req, res) => {
             res.send(data);
         });
 });
+
+// ==================livecriket-work==============
 
 app.get("/**", (req, res, next) => {
     res.sendFile(path.join(__dirname, "./web/build/index.html"))
