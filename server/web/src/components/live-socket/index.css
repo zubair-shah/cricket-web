@@ -1,0 +1,29 @@
+
+
+/* ---------------box-style--------------- */
+.css-1b5o9n1{
+    margin: 0 auto !important;
+    position: relative !important;
+    z-index: 0 !important;
+}
+.main{
+    position: absolute;
+    z-index: 1;
+    top: 100px;
+    right: 140px;
+} 
+/* .row{
+    display: flex;
+    width: 100%;
+    margin: 10px;
+
+}
+*/
+.coloumn{
+    width: 49%;
+    
+
+} 
+.column1{
+    margin-top: 180px;
+}
