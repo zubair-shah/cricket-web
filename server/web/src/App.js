@@ -36,127 +36,29 @@ import { useContext } from "react";
 function App() {
 
   let history = useHistory();
-  let { state, dispatch } = useContext(GlobalContext);
-
-  const logout = () => {
-    axios.post(`${baseUrl}/api/v1/logout`, {}, {
-      withCredentials: true
-    })
-      .then((res) => {
-        console.log("res +++: ", res.data);
-  
-        dispatch({
-          type: "USER_LOGOUT"
-        })
-      })
-  }
-
-  useEffect(() => {
-
-    axios.get(`${baseUrl}/api/v1/profile`, {
-      withCredentials: true
-    })
-      .then((res) => {
-        console.log("res: ", res.data);
-
-        if (res.data.email) {
-
-          dispatch({
-            type: "USER_LOGIN",
-            payload: {
-              name: res.data.name,
-              email: res.data.email,
-              _id: res.data._id
-            }
-          })
-        } else {
-          dispatch({ type: "USER_LOGOUT" })
-        }
-      }).catch((e) => {
-        dispatch({ type: "USER_LOGOUT" })
-      })
-
-    return () => {
-    };
-  }, []);
-
-
   return (
     <>
+    <Navbar bg="light" expand="lg">
+      <Container>
+        <Navbar.Brand href="#home">React Login project</Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="me-auto">
+            <Nav.Link onClick={() => { history.push("/") }}>Scoreboard</Nav.Link>
+            <Nav.Link onClick={() => { history.push("/admin") }}>Dashboard</Nav.Link>
 
-      {(state?.user?.email) ?
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
 
-        <Navbar bg="light" expand="lg">
-          <Container>
-            <Navbar.Brand href="#home">React Login project</Navbar.Brand>
-            <Navbar.Toggle aria-controls="basic-navbar-nav" />
-            <Navbar.Collapse id="basic-navbar-nav">
-              <Nav className="me-auto">
-                <Nav.Link onClick={() => { history.push("/") }}>Dashboard</Nav.Link>
-                <Nav.Link onClick={() => { history.push("/profile") }}>Profile</Nav.Link>
+    <Switch>
+      <Route exact path="/" component={LiveSocket} />
+      <Route path="/admin" component={LiveAdmin} />
 
-              </Nav>
-              <Form className="d-flex">
-                <Button variant="outline-primary" onClick={logout}>Logout</Button>
-              </Form>
-            </Navbar.Collapse>
-          </Container>
-        </Navbar>
-        :
-        <Navbar bg="light" expand="lg">
-          <Container>
-            <Navbar.Brand href="#home">React Login project</Navbar.Brand>
-            <Navbar.Toggle aria-controls="basic-navbar-nav" />
-            <Navbar.Collapse id="basic-navbar-nav">
-              <Nav className="me-auto">
-                <Nav.Link onClick={() => { history.push("/") }}>Login</Nav.Link>
-                <Nav.Link onClick={() => { history.push("/livesocket") }}>Live</Nav.Link>
-                <Nav.Link onClick={() => { history.push("/liveadmin") }}>Live Admin</Nav.Link>
-                <Nav.Link onClick={() => { history.push("/signup") }}>Signup</Nav.Link>
-              </Nav>
-
-            </Navbar.Collapse>
-          </Container>
-        </Navbar>
-      }
-
-
-
-
-      {(state.user === undefined) ?
-        <Switch>
-          <Route exact path="/">
-            <Splash />
-          </Route>
-          {/* <Redirect to="/" /> */}
-        </Switch>
-        : null}
-
-      {(state.user === null) ?
-        <Switch>
-          <Route exact path="/" component={Login} />
-          <Route path="/signup" component={Signup} />
-          <Route path="/livesocket" component={LiveSocket} />
-          <Route path="/liveadmin" component={LiveAdmin} />
-
-          <Redirect to="/" />
-        </Switch> : null
-      }
-
-      {(state.user) ?
-        <Switch>
-          <Route exact path="/">
-            <Dashboard />
-          </Route>
-          <Route exact path="/profile">
-            <Profile />
-          </Route>
-
-          {/* <Redirect to="/" /> */}
-        </Switch>
-        : null}
-
-    </>
+      <Redirect to="/" />
+    </Switch>
+  </>
   );
 }
 
