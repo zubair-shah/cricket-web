@@ -36,7 +36,16 @@ const Item = styled(Paper)(({ theme }) => ({
 
 function LiveAdmin() {
   let history = useHistory();
-  const [inputText, setInputText] = useState("");
+  const [livePost, setlivePost] = useState({
+    teamA: "",
+        teamB: "",
+        batA: "",
+        batB: "",
+        bowler: "",
+        bowl: "",
+        wicket:"",
+        toss:"",
+  });
   // let { state, dispatch } = useContext(GlobalContext);
   // const [posts, setPosts] = useState([])
 
@@ -58,21 +67,24 @@ function LiveAdmin() {
 //         socket.close();
 //     };
 // }, []);
+useEffect(() => {
+  axios.get(`${baseUrl}/api/v1/live`)
+  .then((res)=>{
+   console.log("res +++" , res.data)
+   setlivePost(res.data)
+  })
+}, [])
+
 
 const submit = () => {
-  if (inputText !== "") {
-      axios.post(`${baseUrl}/api/v1/post`, {
-          postText: inputText
-      }, {
-          withCredentials: true
-      })
+      axios.post(`${baseUrl}/api/v1/live`, livePost)
           .then((res) => {
               console.log("res: ", res.data);
-            
               // alert("post created");
-
           })
-  }
+          .catch((err) =>{
+            console.log(err)
+          })
 }
 
   return (
@@ -95,11 +107,13 @@ const submit = () => {
  <Item>
  <TextField 
           id="outlined-helperText"
-          label="Helper text"
+          label="Team A Name"
           defaultValue="Default Value"
-          value={inputText}
+          value={livePost.teamA}
           onChange={(e) => {
-              setInputText(e.target.value)
+              setlivePost((prev) => {
+                return{...prev , teamA: e.target.value}
+              })
           }}
         />
  </Item>
@@ -108,11 +122,13 @@ const submit = () => {
     <Item>
   <TextField
           id="outlined-helperText"
-          label="Helper text"
+          label="Team B Name"
           defaultValue="Default Value"
-          value={inputText}
+          value={livePost.teamB}
           onChange={(e) => {
-              setInputText(e.target.value)
+              setlivePost((prev) =>{
+                return{...prev , teamB: e.target.value}
+              })
           }}
         />
         </Item>
@@ -121,11 +137,13 @@ const submit = () => {
  <Item>
  <TextField
           id="outlined-helperText"
-          label="Helper text"
+          label="Batsman One "
           defaultValue="Default Value"
-          value={inputText}
+          value={livePost.batA}
           onChange={(e) => {
-              setInputText(e.target.value)
+              setlivePost((prev) =>{
+               return{...prev , batA:e.target.value}}
+                )
           }}
         />
  </Item>
@@ -135,11 +153,13 @@ const submit = () => {
  <Item>
  <TextField
           id="outlined-helperText"
-          label="Helper text"
+          label="Batsman B Name"
           defaultValue="Default Value"
-          value={inputText}
+          value={livePost.batB}
           onChange={(e) => {
-              setInputText(e.target.value)
+              setlivePost((prev) =>{
+                return{...prev , batB:e.target.value}
+              })
           }}
         />
  </Item>
@@ -149,11 +169,13 @@ const submit = () => {
  <Item>
  <TextField
           id="outlined-helperText"
-          label="Helper text"
+          label="bat"
           defaultValue="Default Value"
-          value={inputText}
+          value={livePost.bat}
           onChange={(e) => {
-              setInputText(e.target.value)
+              setlivePost((prev) =>{
+                return{...prev , bat:e.target.value}
+              })
           }}
         />
  </Item>
@@ -163,11 +185,13 @@ const submit = () => {
  <Item>
  <TextField
           id="outlined-helperText"
-          label="Helper text"
+          label="Bowl"
           defaultValue="Default Value"
-          value={inputText}
+          value={livePost.bowl}
           onChange={(e) => {
-              setInputText(e.target.value)
+              setlivePost((prev) =>{
+                return{...prev , bowl:e.target.value}
+              })
           }}
         />
  </Item>
@@ -178,10 +202,16 @@ const submit = () => {
   <TextField
         required
           id="outlined-number"
-          label="Number"
+          label="Bowler"
           type="number"
           InputLabelProps={{
             shrink: true,
+          }}
+          value={livePost.bowler}
+          onChange={(e) => {
+              setlivePost((prev) =>{
+                return{...prev , bowler:e.target.value}
+              })
           }}
         />
   </Item>

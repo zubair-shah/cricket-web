@@ -1,8 +1,42 @@
-import * as React from 'react';
+import {useState  , useEffect} from 'react';
+import axios from 'axios'
 import Box from '@mui/material/Box';
 import './index.css'
+import {baseUrl} from './../../core'
+import io from 'socket.io-client'
+
 
  function LiveSocket() {
+
+  const [livePost, setlivePost] = useState({})
+
+  useEffect(() => {
+    const socket = io("http://localhost:5001"); // to connect with locally running Socker.io server
+
+    socket.on('connect', function () {
+        console.log("connected to server")
+    });
+    socket.on('disconnect', function (message) {
+        console.log("disconnected from server: ", message);
+    });
+    socket.on('LIVE', function (data) {
+        console.log(data);
+        setlivePost(data)
+    });
+
+    return () => {
+        socket.close();
+    };
+}, []);
+
+
+  useEffect(() => {
+    axios.get(`${baseUrl}/api/v1/live`)
+    .then((res)=>{
+      console.log("res +++" , res.data)
+      setlivePost(res.data)
+    })
+  }, [])
   return (
       <div>
     <Box
@@ -20,7 +54,7 @@ import './index.css'
     <div className="main">
     <div className="row">
         <div className="coloumn">
-          <h1>Aus vs Africa  <span>(cricket)</span></h1>
+          <h1>{livePost?.teamA} vs {livePost?.teamB}  <span>(cricket)</span></h1>
 
           <br />
           <p>Africa won the toss and elected to bat first</p>
