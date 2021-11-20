@@ -11,22 +11,18 @@ const __dirname = path.resolve();
 //     stringToHash,
 //     varifyHash
 // } from "bcrypt-inzi"
-import jwt from 'jsonwebtoken';
-import cookieParser from 'cookie-parser';
+// import jwt from 'jsonwebtoken';
+// import cookieParser from 'cookie-parser';
 
 
-const SECRET = process.env.SECRET || "12345"
+// const SECRET = process.env.SECRET || "12345"
 const PORT = process.env.PORT || 5001
 const app = express()
 
 const username = "mongouser";
 const password = "mongoadmin";
 
-mongoose.connect(`mongodb+srv://${username}:${password}@cluster0.mbwy5.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`,
-{
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-})
+mongoose.connect(`mongodb+srv://${username}:${password}@cluster0.mbwy5.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`)
 // const User = mongoose.model('User', {
 //     name: String,
 //     email: String,
@@ -55,7 +51,7 @@ const Live = mongoose.model('Live', {
 //     email: String,
 // })
 app.use(express.json())
-app.use(cookieParser())
+// app.use(cookieParser())
 
 app.use(cors({
     origin: true,
