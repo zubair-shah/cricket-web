@@ -22,7 +22,7 @@ const app = express()
 const username = "mongouser";
 const password = "mongoadmin";
 
-mongoose.connect(`mongodb+srv://${username}:${password}@cluster0.mbwy5.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`)
+mongoose.connect(`mongodb+srv://${username}:${password}@cluster0.mbwy5.mongodb.net/cricket-web?retryWrites=true&w=majority`)
 // const User = mongoose.model('User', {
 //     name: String,
 //     email: String,
@@ -32,12 +32,13 @@ mongoose.connect(`mongodb+srv://${username}:${password}@cluster0.mbwy5.mongodb.n
 const Live = mongoose.model('Live', {
     teamA: String,
     teamB: String,
+    tossWinner: String,
+    choiceOfToss: String,
     batA: String,
     batB: String,
     bowler:String,
     bowl: String,
     wicket: String,
-    toss: String,
 
 
     created: { type: Date, default: Date.now },
@@ -263,35 +264,38 @@ app.get("/", (req, res, next) => {
 
 // ==================livecriket-work==============
 
-app.post('api/v1/live' , (req,res) =>{
+app.post('/api/v1/live' , (req,res) =>{
     const live = new Live({
+        tossWinner: req.body.tossWinner,
+        choiceOfToss: req.body.choiceOfToss,
         teamA: req.body.teamA,
         teamB: req.body.teamB,
         batA: req.body.batA,
         batB: req.body.batB,
         bowler: req.body.bowler,
         bowl: req.body.bowl,
-        wicket:req.body.wicket,
-        toss: req.body.toss,
+        wicket:req.body.wicket
+      
     })
     live.save().then( ()=>{
         console.log("post created")
         
     })
     io.emit("LIVE" , {
+        tossWinner: req.body.tossWinner,
+        choiceOfToss: req.body.choiceOfToss,
         teamA: req.body.teamA,
         teamB: req.body.teamB,
         batA: req.body.batA,
         batB: req.body.batB,
         bowler: req.body.bowler,
         bowl: req.body.bowl,
-        wicket:req.body.wicket,
-        toss: req.body.toss,
+        wicket:req.body.wicket
     })
     res.send("post created")
 })
 
-app.get('api/v1/live' , (req,res) =>{
+app.get('/api/v1/live' , (req,res) =>{
     Live.findOne({})
     .sort({_id : "desc"})
     .exec(function (err,data){

@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import './index.css'
 import {baseUrl} from './../../core'
 import io from 'socket.io-client'
+import Typography from '@mui/material/Typography';
 
 
  function LiveSocket() {
@@ -57,14 +58,17 @@ import io from 'socket.io-client'
           <h1>{livePost?.teamA} vs {livePost?.teamB}  <span>(cricket)</span></h1>
 
           <br />
-          <p>Africa won the toss and elected to bat first</p>
-          <h2>Aus Bat</h2>
+          <p>{livePost?.tossWinner} won the toss and elected to first</p>
+          <h2> 
+          <Typography variant="h3" gutterBottom component="div">
+          {livePost?.choiceOfToss}
+      </Typography>  </h2>
           <br />
           <br />
-          <h2>124/5 ball  <span>15.5 over</span></h2>
+          <h2>{livePost?.run}/{livePost?.wicket} ball  <span>{livePost?.bowl} over</span></h2>
           <br />
-          <h2>John*  <span>34(17 balls)</span></h2>
-          <h2>wade  <span>41(22 balls)</span></h2>
+          <h2>{livePost?.batsmanA}  <span>34(17 balls)</span></h2>
+          <h2>{livePost?.batsmanB}   <span>41(22 balls)</span></h2>
 
           <br /><br />
           <h2>Run rate:  <span>5 run/over</span></h2>
