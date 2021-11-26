@@ -75,14 +75,14 @@ import Typography from '@mui/material/Typography';
         </div>
         <div className="coloumn column1">
             
-        <h2>Africa bowling</h2>
+        <h2>{livePost?.teamA} bowling</h2>
           <br />
           <br />
          
           <h2>waseem  <span>3.2 over,2w,23run</span></h2>
           <h2>shaheen  <span>3.2 over,2w,23run</span></h2>
           <br />
-          <h2>  Target: 230 run</h2>
+          <h2>  Target: {livePost?.target} run</h2>
           
             </div>
     </div>

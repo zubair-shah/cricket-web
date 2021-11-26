@@ -47,11 +47,15 @@ function LiveAdmin() {
     teamB: "",
     tossWinner:"",
     choiceOfToss:"",
-        batA: "",
-        batB: "",
-        bowler: "",
-        bowl: "",
-        wicket:"",
+    target: "",
+    batA: "",
+    batB: "",
+    bowler: "",
+    bowl: "",
+    wicket:"",
+    winnerTeam:"",
+    winnerBywickets :"",
+    winnerByruns:""
   });
   // let { state, dispatch } = useContext(GlobalContext);
   // const [posts, setPosts] = useState([])
@@ -123,36 +127,51 @@ const [age, setAge] = useState('');
           <MenuItem value={"India"}>India</MenuItem>
           <MenuItem value={"Australia"}>Australia</MenuItem>
           <MenuItem value={"England"}>England</MenuItem>
+          <MenuItem value={"WestIndies"}>WestIndies</MenuItem>
+          <MenuItem value={"Newzealand"}>Newzealand</MenuItem>
+          <MenuItem value={"SouthAfrica"}>South Africa</MenuItem>
+          <MenuItem value={"Srilanka"}>Srilanka</MenuItem>
+          <MenuItem value={"Bangladesh"}>Bangladesh</MenuItem>
+          <MenuItem value={"AfghaNistan"}>AfghaNistan</MenuItem>
+          <MenuItem value={"Scotland"}>Scotland</MenuItem>
+          <MenuItem value={"Namebia"}>Namebia</MenuItem>
         </Select>
       </FormControl>
-
-
- <TextField 
-          id="outlined-helperText"
-          label="Team A Name"
-          defaultValue="Default Value"
-          value={livePost.teamA}
-          onChange={(e) => {
-              setlivePost((prev) => {
-                return{...prev , teamA: e.target.value}
-              })
-          }}
-        />
  </Item>
   </Grid>
   <Grid item xs={12} sm={4} md={3} lg={2} >
  <Item>
- <TextField 
-          id="outlined-helperText"
-          label="Team A Name"
-          defaultValue="Default Value"
+
+ <FormControl sx={{ m: 1, minWidth: 200 }}>
+        <InputLabel id="demo-simple-select-helper-label">Select Team B</InputLabel>
+        <Select
+          labelId="demo-simple-select-helper-label"
+          id="demo-simple-select-helper"
           value={livePost.teamB}
+          label="Age"
+          // onChange={handleChange}
           onChange={(e) => {
-              setlivePost((prev) => {
-                return{...prev , teamB: e.target.value}
-              })
-          }}
-        />
+            setlivePost((prev) => {
+              return{...prev , teamB: e.target.value}
+            })
+        }}
+        >
+          <MenuItem value={"India"}>
+            <em>India</em>
+          </MenuItem>
+          <MenuItem value={"Pakistan"}>Pakistan</MenuItem>
+          <MenuItem value={"Australia"}>Australia</MenuItem>
+          <MenuItem value={"England"}>England</MenuItem>
+          <MenuItem value={"WestIndies"}>WestIndies</MenuItem>
+          <MenuItem value={"Newzealand"}>Newzealand</MenuItem>
+          <MenuItem value={"SouthAfrica"}>South Africa</MenuItem>
+          <MenuItem value={"Srilanka"}>Srilanka</MenuItem>
+          <MenuItem value={"Bangladesh"}>Bangladesh</MenuItem>
+          <MenuItem value={"AfghaNistan"}>AfghaNistan</MenuItem>
+          <MenuItem value={"Scotland"}>Scotland</MenuItem>
+          <MenuItem value={"Namebia"}>Namebia</MenuItem>
+        </Select>
+      </FormControl>
  </Item>
   </Grid>
   <Grid item xs={12} sm={4} md={3} lg={2}>
@@ -173,17 +192,26 @@ const [age, setAge] = useState('');
   </Grid>
   <Grid item xs={12} sm={4} md={3} lg={2}>
  <Item>
- <TextField
-          id="outlined-helperText"
-          label="chose elected to first"
-          defaultValue="Default Value"
+        <FormControl sx={{ m: 1, minWidth: 200 }}>
+        <InputLabel id="demo-simple-select-helper-label">Choose To</InputLabel>
+        <Select
+          labelId="demo-simple-select-helper-label"
+          id="demo-simple-select-helper"
           value={livePost.choiceOfToss}
+          label="Toss"
+          // onChange={handleChange}
           onChange={(e) => {
-              setlivePost((prev) =>{
-                return{...prev , choiceOfToss:e.target.value}
-              })
-          }}
-        />
+            setlivePost((prev) => {
+              return{...prev , choiceOfToss: e.target.value}
+            })
+        }}
+        >
+          <MenuItem value={"Bat"}>
+            <em>Batting</em>
+          </MenuItem>
+          <MenuItem value={"Bowl"}>Bowling</MenuItem>
+        </Select>
+      </FormControl>
  </Item>
  
   </Grid>
@@ -191,12 +219,12 @@ const [age, setAge] = useState('');
  <Item>
  <TextField
           id="outlined-helperText"
-          label="Batsman One "
+          label="Target "
           defaultValue="Default Value"
-          value={livePost.batA}
+          value={livePost.target}
           onChange={(e) => {
               setlivePost((prev) =>{
-               return{...prev , batA:e.target.value}}
+               return{...prev , target:e.target.value}}
                 )
           }}
         />
@@ -205,31 +233,40 @@ const [age, setAge] = useState('');
   </Grid>
   <Grid item xs={12} sm={4} md={3} lg={2}>
  <Item>
- <TextField
-          id="outlined-helperText"
-          label="Batsman B Name"
-          defaultValue="Default Value"
-          value={livePost.batB}
+ <FormControl sx={{ m: 1, minWidth: 200 }}>
+        <InputLabel id="demo-simple-select-helper-label">Winner Team</InputLabel>
+        <Select
+          labelId="demo-simple-select-helper-label"
+          id="demo-simple-select-helper"
+          value={livePost.winnerTeam}
+          label="Winner Team"
+          // onChange={handleChange}
           onChange={(e) => {
-              setlivePost((prev) =>{
-                return{...prev , batB:e.target.value}
-              })
-          }}
-        />
+            setlivePost((prev) => {
+              return{...prev , winnerTeam: e.target.value}
+            })
+        }}
+        >
+          <MenuItem value={`${livePost.teamA}`}>
+            <em>{livePost.teamA}</em>
+          </MenuItem>
+          <MenuItem value={`${livePost.teamB}`}>{livePost.teamB}</MenuItem>
+        </Select>
+      </FormControl>
  </Item>
  
   </Grid>
-  
+
   <Grid item xs={12} sm={4} md={3} lg={2}>
  <Item>
  <TextField
           id="outlined-helperText"
-          label="Bowl"
-          defaultValue="Default Value"
-          value={livePost.bowl}
+          label="Win By runs"
+          value={livePost.winnerByruns}
+        
           onChange={(e) => {
               setlivePost((prev) =>{
-                return{...prev , bowl:e.target.value}
+                return{...prev , winnerByruns:e.target.value}
               })
           }}
         />
@@ -241,15 +278,17 @@ const [age, setAge] = useState('');
   <TextField
         required
           id="outlined-number"
-          label="Bowler"
+          label="Win By Wickets"
           type="number"
           InputLabelProps={{
             shrink: true,
+
           }}
-          value={livePost.bowler}
+          inputProps={{ min: 1, max: 10 }}
+          value={livePost.winnerBywickets}
           onChange={(e) => {
               setlivePost((prev) =>{
-                return{...prev , bowler:e.target.value}
+                return{...prev , winnerBywickets:e.target.value}
               })
           }}
         />

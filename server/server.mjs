@@ -34,11 +34,15 @@ const Live = mongoose.model('Live', {
     teamB: String,
     tossWinner: String,
     choiceOfToss: String,
+    target:String,
     batA: String,
     batB: String,
     bowler:String,
     bowl: String,
     wicket: String,
+    winnerTeam:String,
+    winnerBywickets :String,
+    winnerByruns:String,
 
 
     created: { type: Date, default: Date.now },
@@ -268,13 +272,17 @@ app.post('/api/v1/live' , (req,res) =>{
     const live = new Live({
         tossWinner: req.body.tossWinner,
         choiceOfToss: req.body.choiceOfToss,
+        target:req.body.target,
         teamA: req.body.teamA,
         teamB: req.body.teamB,
         batA: req.body.batA,
         batB: req.body.batB,
         bowler: req.body.bowler,
         bowl: req.body.bowl,
-        wicket:req.body.wicket
+        wicket:req.body.wicket,
+        winnerTeam:req.body.winnerTeam,
+        winnerBywickets :req.body.winnerBywickets,
+        winnerByruns:req.body.winnerByruns
       
     })
     live.save().then( ()=>{
@@ -284,13 +292,17 @@ app.post('/api/v1/live' , (req,res) =>{
     io.emit("LIVE" , {
         tossWinner: req.body.tossWinner,
         choiceOfToss: req.body.choiceOfToss,
+        target:req.body.target,
         teamA: req.body.teamA,
         teamB: req.body.teamB,
         batA: req.body.batA,
         batB: req.body.batB,
         bowler: req.body.bowler,
         bowl: req.body.bowl,
-        wicket:req.body.wicket
+        wicket:req.body.wicket,
+        winnerTeam:req.body.winnerTeam,
+        winnerBywickets :req.body.winnerBywickets,
+        winnerByruns:req.body.winnerByruns
     })
     res.send("post created")
 })
