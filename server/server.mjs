@@ -36,8 +36,16 @@ const Live = mongoose.model('Live', {
     choiceOfToss: String,
     target:String,
     batA: String,
+    batAruns:String,
+    batAballs:String,
     batB: String,
+    batBruns: String,
+    batBballs:String,
+    run:String,
     bowler:String,
+    bowlerBalls:String,
+    bowlerRuns:String,
+    bowlerWickets:String,
     bowl: String,
     wicket: String,
     winnerTeam:String,
@@ -276,8 +284,16 @@ app.post('/api/v1/live' , (req,res) =>{
         teamA: req.body.teamA,
         teamB: req.body.teamB,
         batA: req.body.batA,
+        batAruns:req.body.batAruns,
+        batAballs:req.body.batAballs,
         batB: req.body.batB,
+        batBruns:req.body.batBruns,
+        batBballs:req.body.batBballs,
+        run: req.body.run,
         bowler: req.body.bowler,
+        bowlerBalls:req.body.bowlerBalls,
+        bowlerRuns:req.body.bowlerRuns,
+        bowlerWickets:req.body.bowlerWickets,
         bowl: req.body.bowl,
         wicket:req.body.wicket,
         winnerTeam:req.body.winnerTeam,
@@ -296,16 +312,27 @@ app.post('/api/v1/live' , (req,res) =>{
         teamA: req.body.teamA,
         teamB: req.body.teamB,
         batA: req.body.batA,
+        batAruns:req.body.batAruns,
+        batAballs:req.body.batAballs,
         batB: req.body.batB,
+        batBruns:req.body.batBruns,
+        batBballs:req.body.batBballs,
+        run: req.body.run,
         bowler: req.body.bowler,
+        bowlerBalls:req.body.bowlerBalls,
+        bowlerRuns:req.body.bowlerRuns,
+        bowlerWickets:req.body.bowlerWickets,
         bowl: req.body.bowl,
         wicket:req.body.wicket,
         winnerTeam:req.body.winnerTeam,
         winnerBywickets :req.body.winnerBywickets,
         winnerByruns:req.body.winnerByruns
+      
     })
     res.send("post created")
 })
+
+
 
 app.get('/api/v1/live' , (req,res) =>{
     Live.findOne({})

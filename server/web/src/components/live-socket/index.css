@@ -5,6 +5,7 @@
     margin: 0 auto !important;
     position: relative !important;
     z-index: 0 !important;
+    width: 1200px !important;
 }
 .main{
     position: absolute;

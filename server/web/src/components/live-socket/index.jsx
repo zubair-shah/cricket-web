@@ -38,6 +38,7 @@ import Typography from '@mui/material/Typography';
       setlivePost(res.data)
     })
   }, [])
+  const tossWinner =  livePost?.teamA
   return (
       <div>
     <Box
@@ -65,22 +66,23 @@ import Typography from '@mui/material/Typography';
       </Typography>  </h2>
           <br />
           <br />
-          <h2>{livePost?.run}/{livePost?.wicket} ball  <span>{livePost?.bowl} over</span></h2>
+          <h2>{livePost?.run}/{livePost?.wicket} <span>({livePost?.bowl} over)</span></h2>
           <br />
-          <h2>{livePost?.batsmanA}  <span>34(17 balls)</span></h2>
-          <h2>{livePost?.batsmanB}   <span>41(22 balls)</span></h2>
+          <h2>{livePost?.batA}  <span>{livePost?.batAruns}({livePost?.batAballs} balls)</span></h2>
+          <h2>{livePost?.batB}   <span>{livePost?.batBruns}({livePost?.batBballs} balls)</span></h2>
 
           <br /><br />
           <h2>Run rate:  <span>5 run/over</span></h2>
         </div>
         <div className="coloumn column1">
             
-        <h2>{livePost?.teamA} bowling</h2>
+        <h2>{tossWinner === livePost?.teamA ? `${livePost?.teamB}` : `${livePost?.teamA}`
+         } bowling</h2>
           <br />
           <br />
          
-          <h2>waseem  <span>3.2 over,2w,23run</span></h2>
-          <h2>shaheen  <span>3.2 over,2w,23run</span></h2>
+          <h2> {livePost?.bowler}<span> {livePost?.bowlerBalls} over, {livePost?.bowlerWickets} wickets,{livePost?.bowlerRuns} runs</span></h2>
+          
           <br />
           <h2>  Target: {livePost?.target} run</h2>
           
